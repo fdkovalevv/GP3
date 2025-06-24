@@ -1,0 +1,27 @@
+model: SASRec
+dataset: instacart
+data_path: ./recbole_data
+
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+TIME_FIELD: timestamp
+
+load_col:
+  inter: [user_id, item_id, timestamp]
+
+hidden_size: 64
+num_blocks: 2
+num_heads:  2
+dropout_prob: 0.2
+MAX_ITEM_LIST_LENGTH: 100
+
+device: cuda
+train_batch_size: 1024
+epochs: 20
+
+loss_type: CE
+train_neg_sample_args: ~
+
+metrics: [Recall, NDCG]
+topk: [5, 10, 20]
+valid_metric: Recall@20
